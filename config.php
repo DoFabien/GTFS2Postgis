@@ -1,6 +1,7 @@
 <?php
 
-$path = 'DATA';
+$file_gtfs = 'SEM-GTFS.zip'; //nom du fichier GTFS (zip) qui doit être dans dans /GTFS
+
 $db_name = 'gtfs';
 $userPG = 'postgres';
 $passwordPG = '';
