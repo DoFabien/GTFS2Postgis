@@ -1,6 +1,7 @@
 <?php
 
 $file_gtfs = 'SEM-GTFS.zip'; //nom du fichier GTFS (zip) qui doit être dans dans /GTFS
+$replace_data = true; // supprimer le contenu des tables avant l'import?
 
 $db_name = 'gtfs';
 $userPG = 'postgres';

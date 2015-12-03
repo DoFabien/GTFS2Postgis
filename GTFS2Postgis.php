@@ -5,7 +5,6 @@ header('Content-type: text/html; charset=utf-8');
 include_once('config.php');
 
 /*Extraction du GTFS dans DATA/nom_du_zip*/
-
 $path_gtfs = 'GTFS/'.$file_gtfs;
 
 if (!file_exists('_GTFS_EXTRACT')) {
@@ -21,13 +20,9 @@ if ($res === TRUE) {
 } else {
     echo "Oups, impossible d'extraire le GTFS";
 }
-ob_flush();
-flush();
+ob_flush();flush();
 
 $tables = array('agency','trips','calendar','calendar_dates','stops','stop_times','directions','fare_attributes','fare_rules','feed_info','frequencies','payment_methods','pickup_dropoff_types','routes','route_types','shapes','transfers','transfer_types');
-
-
-$replace_data = true;
 
 if ($replace_data == true){
     for($i = 0; $i<count($tables);$i++){
@@ -36,24 +31,20 @@ if ($replace_data == true){
         $req_trun->execute(); 
     }
     echo 'TRUNCATE TABLE <br>';
-    ob_flush();
-    flush();
+    ob_flush();flush();
 }
 
 /*On parcourt chaque fichier qui porte le nom $tables.txt*/
 for ($k=0;  $k< count($tables); $k++){ 
     $file_str = $tables[$k] . '.txt'; // nom du fichier en cours d'import
 
-
     if (file_exists($current_file)){ //si le fichier existe 
         $current_file = "_GTFS_EXTRACT/" .$file_str; // chemin du fichier 
         $rHandle = fopen($current_file, 'r');
-
         $file_handle = fopen($current_file, "r");
         $num = 0;
         while (!feof($file_handle)) {
             $line = fgets($file_handle); 
-
             if($num ==0){
                 $row_head = str_getcsv ( $line,',' , '"' );
                 $sql_feilds = implode(',',$row_head);
@@ -72,17 +63,13 @@ for ($k=0;  $k< count($tables); $k++){
                 }
                 $req->execute($arr_ass);    
             }
-
             $num ++;
         }
         fclose($file_handle);
-
         chmod($current_file,'0777');
         unlink($current_file) ;
-
         echo $file_str . ' Done <br>' ;
-        ob_flush();
-        flush();
+        ob_flush();flush();
     }
 }
 
@@ -92,7 +79,6 @@ for($i = 0; $i<count($tables);$i++){
     $req_trun->execute(); 
 }
 echo 'VACUUM ANALYZE  <br>';
-
 rmdir('_GTFS_EXTRACT');
 echo 'Done!';
 ?>
