@@ -37,9 +37,9 @@ if ($replace_data == true){
 /*On parcourt chaque fichier qui porte le nom $tables.txt*/
 for ($k=0;  $k< count($tables); $k++){ 
     $file_str = $tables[$k] . '.txt'; // nom du fichier en cours d'import
-
+    $current_file = "_GTFS_EXTRACT/" .$file_str; // chemin du fichier 
+    
     if (file_exists($current_file)){ //si le fichier existe 
-        $current_file = "_GTFS_EXTRACT/" .$file_str; // chemin du fichier 
         $rHandle = fopen($current_file, 'r');
         $file_handle = fopen($current_file, "r");
         $num = 0;
